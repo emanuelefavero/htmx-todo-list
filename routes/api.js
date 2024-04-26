@@ -15,7 +15,12 @@ function generateTodosHTML(todos) {
         todo.id
       }" hx-trigger="click" hx-target="#todos" class="${
         todo.completed ? 'line-through' : ''
-      }">${todo.text}</li>`
+      }">${todo.text} ${todo.id} ${
+        todo.completed
+          ? `<button hx-post="/api/delete/${todo.id}" hx-trigger="click" hx-target="#todos" class='delete-button'>X</button>`
+          : ''
+      }
+      </li>`
     })
     .join('')
 }
@@ -29,7 +34,8 @@ apiRouter.get('/api/todos', (req, res) => {
 // * POST /api/todos - add a new todo
 apiRouter.post('/api/todos', (req, res) => {
   const { text } = req.body
-  const newTodo = { id: todos.length + 1, text, completed: false }
+  const lastTodoId = todos.length === 0 ? 0 : todos[todos.length - 1].id
+  const newTodo = { id: lastTodoId + 1, text, completed: false }
   todos.push(newTodo)
 
   res.send(generateTodosHTML(todos))
@@ -42,6 +48,15 @@ apiRouter.post('/api/toggle/:id', (req, res) => {
   if (todo) {
     todo.completed = !todo.completed
   }
+
+  res.send(generateTodosHTML(todos))
+})
+
+// * POST /api/delete/:id - delete a todo
+apiRouter.post('/api/delete/:id', (req, res) => {
+  const { id } = req.params
+  const index = todos.findIndex((t) => t.id == id)
+  if (index !== -1) todos.splice(index, 1)
 
   res.send(generateTodosHTML(todos))
 })
