@@ -14,3 +14,7 @@ This is a simple todo list application that demonstrates how to use [HTMX](https
 - [HTMX](https://htmx.org)
 - [Node.js](https://nodejs.org)
 - [Express](https://expressjs.com)
+
+## License
+
+- [MIT](LICENSE.md)
