@@ -24,11 +24,6 @@
   <body>
     <h1 class="title">HTMX Todo List</h1>
 
-    <div
-      hx-get="/api/hello"
-      hx-trigger="load"
-      hx-target="this"
-      hx-swap="outerHTML"
-    ></div>
+    <ul hx-get="/api/todos" hx-trigger="load" hx-target="this"></ul>
   </body>
 </html>
