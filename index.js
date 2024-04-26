@@ -18,8 +18,8 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
 // Use routes
-app.use('/', pagesRouter) // Use pages routes
-app.use('/api', apiRouter) // Use API routes under the /api prefix
+app.use(pagesRouter) // Use pages routes
+app.use(apiRouter) // Use API routes under the /api prefix
 
 // Start the server
 app.listen(PORT, () => {

@@ -104,10 +104,11 @@ input[type='submit']:active {
   scale: 0.95;
 }
 
-input {
+input,
+input[type='text'] {
   color: #000;
   border: 1px solid var(--foreground);
-  padding: 0.5rem;
+  padding: 0.2rem 0.3rem;
   border-radius: 0.5rem;
 }
 
