@@ -52,6 +52,13 @@ apiRouter.post('/api/toggle/:id', (req, res) => {
     todo.completed = !todo.completed
   }
 
+  // Put todo at the top if it's toggled to not completed
+  if (!todo.completed) {
+    const index = todos.findIndex((t) => t.id === id)
+    todos.splice(index, 1)
+    todos.unshift(todo)
+  }
+
   res.send(generateTodosHTML(todos))
 })
 
