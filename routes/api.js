@@ -13,9 +13,9 @@ function generateTodosHTML(todos) {
     .map((todo) => {
       return `<li hx-post="/api/toggle/${
         todo.id
-      }" hx-trigger="click" hx-target="#todos" class="${
-        todo.completed ? 'line-through' : ''
-      }">${todo.text} ${todo.id} ${
+      }" hx-trigger="click" hx-target="#todos" class="todo-item ${
+        todo.completed ? 'line-through text-gray-400 dark:text-gray-600' : ''
+      }">${todo.text} ${
         todo.completed
           ? `<button hx-post="/api/delete/${todo.id}" hx-trigger="click" hx-target="#todos" class='delete-button'>X</button>`
           : ''

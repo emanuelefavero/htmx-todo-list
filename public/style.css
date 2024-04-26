@@ -147,3 +147,8 @@ button.delete-button:hover {
 button.delete-button:active {
   scale: 0.95;
 }
+
+li.todo-item {
+  user-select: none;
+  cursor: pointer;
+}
