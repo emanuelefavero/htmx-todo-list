@@ -26,16 +26,29 @@
 
     <!-- ADD NEW TODO -->
     <form
+      hx-on:htmx:after-request="clearInput()"
       hx-post="/api/todos"
       hx-trigger="submit"
       hx-target="#todos"
       class="mb-2"
     >
-      <input type="text" name="text" placeholder="Add new todo" required />
+      <input
+        id="textInput"
+        type="text"
+        name="text"
+        placeholder="Add new todo"
+        required
+      />
       <button type="submit" class="px-2 py-1">+</button>
     </form>
 
     <!-- GET TODOS -->
     <ul id="todos" hx-get="/api/todos" hx-trigger="load" hx-target="this"></ul>
+
+    <script>
+      function clearInput() {
+        document.getElementById('textInput').value = ''
+      }
+    </script>
   </body>
 </html>
