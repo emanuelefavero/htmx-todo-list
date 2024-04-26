@@ -30,7 +30,7 @@ function generateTodosHTML(todos) {
     .join('')
 
   // HTML content to put between not completed and completed todos
-  const separatorHTML = `<div class="separator">---</div>`
+  const separatorHTML = `<div>--- <button hx-post="/api/delete-completed" hx-trigger="click" hx-target="#todos" class="delete-button">Delete Completed</button> ---</div>`
 
   // Generate HTML for completed todos
   const completedHTML = completedTodos
@@ -90,9 +90,11 @@ apiRouter.post('/api/delete/:id', (req, res) => {
 
 // * POST /api/delete-completed - delete all completed todos
 apiRouter.post('/api/delete-completed', (req, res) => {
-  todos.forEach((todo, index) => {
-    if (todo.completed) todos.splice(index, 1)
-  })
+  for (let i = todos.length - 1; i >= 0; i--) {
+    if (todos[i].completed) {
+      todos.splice(i, 1)
+    }
+  }
 
   res.send(generateTodosHTML(todos))
 })
