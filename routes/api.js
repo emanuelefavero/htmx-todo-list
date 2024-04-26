@@ -9,24 +9,41 @@ const apiRouter = Router()
 // Calculate directory path
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
+// * Generate HTML for todos
 function generateTodosHTML(todos) {
-  // Put completed todos at the bottom
-  todos.sort((a, b) => a.completed - b.completed)
+  const notCompletedTodos = []
+  const completedTodos = []
 
-  return todos
+  todos.forEach((todo) => {
+    if (todo.completed) {
+      completedTodos.push(todo)
+    } else {
+      notCompletedTodos.push(todo)
+    }
+  })
+
+  // Generate HTML for not completed todos
+  const notCompletedHTML = notCompletedTodos
     .map((todo) => {
-      return `<li hx-post="/api/toggle/${
-        todo.id
-      }" hx-trigger="click" hx-target="#todos" class="todo-item ${
-        todo.completed ? 'line-through text-gray-400 dark:text-gray-600' : ''
-      }">${todo.text} ${
-        todo.completed
-          ? `<button hx-post="/api/delete/${todo.id}" hx-trigger="click" hx-target="#todos" class='delete-button'>X</button>`
-          : ''
-      }
-      </li>`
+      return `<li hx-post="/api/toggle/${todo.id}" hx-trigger="click" hx-target="#todos" class="todo-item">${todo.text}</li>`
     })
     .join('')
+
+  // HTML content to put between not completed and completed todos
+  const separatorHTML = `<div class="separator">---</div>`
+
+  // Generate HTML for completed todos
+  const completedHTML = completedTodos
+    .map((todo) => {
+      return `<li hx-post="/api/toggle/${todo.id}" hx-trigger="click" hx-target="#todos" class="todo-item line-through text-gray-400 dark:text-gray-600">${todo.text} <button hx-post="/api/delete/${todo.id}" hx-trigger="click" hx-target="#todos" class='delete-button'>X</button></li>`
+    })
+    .join('')
+
+  // Combine and return the full HTML (if there are no completed todos, don't include the separator)
+  return (
+    notCompletedHTML +
+    (completedTodos.length ? separatorHTML + completedHTML : '')
+  )
 }
 
 // API routes
@@ -67,6 +84,15 @@ apiRouter.post('/api/delete/:id', (req, res) => {
   const { id } = req.params
   const index = todos.findIndex((t) => t.id === id)
   if (index !== -1) todos.splice(index, 1)
+
+  res.send(generateTodosHTML(todos))
+})
+
+// * POST /api/delete-completed - delete all completed todos
+apiRouter.post('/api/delete-completed', (req, res) => {
+  todos.forEach((todo, index) => {
+    if (todo.completed) todos.splice(index, 1)
+  })
 
   res.send(generateTodosHTML(todos))
 })
