@@ -1,6 +1,10 @@
 # HTMX Todo List
 
-This is a simple todo list application that demonstrates how to use [HTMX](https://htmx.org) with Node.js and Express.
+This is a simple todo list application built with [HTMX](https://htmx.org), Node.js and Express.
+
+#### Screenshot
+
+<img src="screenshot.png" alt="screenshot" width="300">
 
 ## Installation
 
