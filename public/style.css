@@ -151,4 +151,5 @@ button.delete-button:active {
 li.todo-item {
   user-select: none;
   cursor: pointer;
+  width: max-content;
 }

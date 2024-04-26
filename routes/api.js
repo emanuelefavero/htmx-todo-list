@@ -1,4 +1,5 @@
 import { Router } from 'express'
+import { v4 as uuidv4 } from 'uuid'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import { todos } from '../data/todos.js'
@@ -9,6 +10,9 @@ const apiRouter = Router()
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 function generateTodosHTML(todos) {
+  // Put completed todos at the bottom
+  todos.sort((a, b) => a.completed - b.completed)
+
   return todos
     .map((todo) => {
       return `<li hx-post="/api/toggle/${
@@ -34,9 +38,8 @@ apiRouter.get('/api/todos', (req, res) => {
 // * POST /api/todos - add a new todo
 apiRouter.post('/api/todos', (req, res) => {
   const { text } = req.body
-  const lastTodoId = todos.length === 0 ? 0 : todos[todos.length - 1].id
-  const newTodo = { id: lastTodoId + 1, text, completed: false }
-  todos.push(newTodo)
+  const newTodo = { id: uuidv4(), text, completed: false }
+  todos.unshift(newTodo) // add new todo at the beginning
 
   res.send(generateTodosHTML(todos))
 })
@@ -44,7 +47,7 @@ apiRouter.post('/api/todos', (req, res) => {
 // * POST /api/toggle/:id - toggle the completion status of a todo
 apiRouter.post('/api/toggle/:id', (req, res) => {
   const { id } = req.params
-  const todo = todos.find((t) => t.id == id)
+  const todo = todos.find((t) => t.id === id)
   if (todo) {
     todo.completed = !todo.completed
   }
@@ -55,7 +58,7 @@ apiRouter.post('/api/toggle/:id', (req, res) => {
 // * POST /api/delete/:id - delete a todo
 apiRouter.post('/api/delete/:id', (req, res) => {
   const { id } = req.params
-  const index = todos.findIndex((t) => t.id == id)
+  const index = todos.findIndex((t) => t.id === id)
   if (index !== -1) todos.splice(index, 1)
 
   res.send(generateTodosHTML(todos))
