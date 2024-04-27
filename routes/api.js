@@ -30,12 +30,12 @@ function generateTodosHTML(todos) {
     .join('')
 
   // HTML content to put between not completed and completed todos
-  const separatorHTML = `<div>--- <button hx-post="/api/delete-completed" hx-trigger="click" hx-target="#todos" class="delete-button">Delete Completed</button> ---</div>`
+  const separatorHTML = `<div>--- <button hx-post="/api/delete-completed" hx-trigger="click" hx-target="#todos" class="delete-button separator">Delete Completed</button> ---</div>`
 
   // Generate HTML for completed todos
   const completedHTML = completedTodos
     .map((todo) => {
-      return `<li hx-post="/api/toggle/${todo.id}" hx-trigger="click" hx-target="#todos" class="todo-item line-through text-gray-400 dark:text-gray-600">${todo.text} <button hx-post="/api/delete/${todo.id}" hx-trigger="click" hx-target="#todos" class='delete-button'>X</button></li>`
+      return `<li hx-post="/api/toggle/${todo.id}" hx-trigger="click" hx-target="#todos" class="todo-item completed">${todo.text} <button hx-post="/api/delete/${todo.id}" hx-trigger="click" hx-target="#todos" class='delete-button'>X</button></li>`
     })
     .join('')
 

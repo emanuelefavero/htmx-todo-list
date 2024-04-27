@@ -2,21 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
+/* VARIABLES */
 :root {
   --background: #fff;
   --foreground: #000;
-  --primary: #d946ef;
-  --primary-hover: #c026d3;
-  --selection: rgba(216, 70, 239, 0.3);
+  --primary: #10b981;
+  --primary-hover: #059669;
+  --selection: rgb(16, 185, 129, 0.3);
+  --input-background: #f3f4f6;
+  --input-border: #d1d5db;
+  --placeholder: #6b7280;
 }
 
+/* DARK MODE */
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #000;
     --foreground: #fff;
+    --input-background: #020617;
+    --input-border: #4b5563;
+    --placeholder: #9ca3af;
   }
 }
 
+/* GENRAL STYLING */
 * {
   box-sizing: border-box;
   padding: 0;
@@ -106,22 +115,28 @@ input[type='submit']:active {
 
 input,
 input[type='text'] {
-  color: #000;
-  border: 1px solid var(--foreground);
+  background-color: var(--input-background);
+  color: var(--foreground);
+  border: 1px solid var(--input-border);
   padding: 0.2rem 0.3rem;
   border-radius: 0.5rem;
+
+  &::placeholder {
+    color: var(--placeholder);
+  }
 }
 
 ul {
   list-style-type: none;
 }
 
+/* TITLE */
 h1.title {
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
 }
 
-/* CUSTOM CLASSES */
-
+/* LOADING INDICATOR */
 .loading-indicator-container {
   width: 100%;
   display: flex;
@@ -133,11 +148,49 @@ h1.title {
   }
 }
 
+/* ADD TODO FORM */
+form.add-todo-form {
+  margin-bottom: 1rem;
+
+  input[type='text'] {
+    font-size: 1rem;
+  }
+
+  button {
+    padding: 0.25rem 0.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+  }
+}
+
+/* LIST TODOS */
+li.todo-item {
+  user-select: none;
+  cursor: pointer;
+  width: max-content;
+  margin-bottom: 0.5rem;
+
+  &.completed {
+    text-decoration: line-through;
+    color: #6b7280;
+  }
+}
+
 button.delete-button {
   color: #f43f5e;
-  margin-left: 0.2rem;
+  /* margin-left: 0.2rem; */
   background: none;
   font-weight: bold;
+  padding: 0;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+
+  &.separator {
+    font-size: 1rem;
+    padding-left: 0;
+    padding-right: 0;
+    margin-bottom: 0.5rem;
+  }
 }
 
 button.delete-button:hover {
@@ -146,19 +199,4 @@ button.delete-button:hover {
 
 button.delete-button:active {
   scale: 0.95;
-}
-
-li.todo-item {
-  user-select: none;
-  cursor: pointer;
-  width: max-content;
-}
-
-/* ADD TODO FORM */
-form.add-todo-form {
-  margin-bottom: 0.5rem;
-
-  button {
-    padding: 0.25rem 0.5rem;
-  }
 }
