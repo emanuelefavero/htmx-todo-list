@@ -153,3 +153,12 @@ li.todo-item {
   cursor: pointer;
   width: max-content;
 }
+
+/* ADD TODO FORM */
+form.add-todo-form {
+  margin-bottom: 0.5rem;
+
+  button {
+    padding: 0.25rem 0.5rem;
+  }
+}

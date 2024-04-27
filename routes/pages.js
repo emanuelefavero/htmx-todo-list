@@ -1,4 +1,3 @@
-// routes/pages.js
 import { Router } from 'express'
 import path from 'path'
 import { fileURLToPath } from 'url'

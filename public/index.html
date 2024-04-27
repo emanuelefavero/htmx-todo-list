@@ -8,9 +8,6 @@
     <!-- FAVICON -->
     <link rel="icon" href="favicon.svg" />
 
-    <!-- TAILWINDCSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-
     <!-- CSS -->
     <link rel="stylesheet" href="style.css" />
 
@@ -30,7 +27,7 @@
       hx-post="/api/todos"
       hx-trigger="submit"
       hx-target="#todos"
-      class="mb-2"
+      class="add-todo-form"
     >
       <input
         id="textInput"
@@ -39,7 +36,7 @@
         placeholder="Add new todo"
         required
       />
-      <button type="submit" class="px-2 py-1">+</button>
+      <button type="submit">+</button>
     </form>
 
     <!-- GET TODOS -->
