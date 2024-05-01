@@ -2,8 +2,8 @@ import * as dotenv from 'dotenv'
 dotenv.config()
 
 import express from 'express'
-import pagesRouter from './routes/pages.js'
-import apiRouter from './routes/api.js'
+import apiRouter from './routes/apiRouter.js'
+import pagesRouter from './routes/pagesRouter.js'
 
 const app = express()
 const PORT = 3000
@@ -18,8 +18,8 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
 // Use routes
-app.use(pagesRouter) // Use pages routes
 app.use(apiRouter) // Use API routes under the /api prefix
+app.use(pagesRouter) // Use pages routes
 
 // Start the server
 app.listen(PORT, () => {
