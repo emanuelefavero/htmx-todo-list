@@ -1,17 +1,11 @@
 import { Router } from 'express'
 import { v4 as uuidv4 } from 'uuid'
-import path from 'path'
-import { fileURLToPath } from 'url'
 import { todos } from '../data/todos.js'
 import generateTodosHTML from '../utilities/generateTodosHTML.js'
 
 const apiRouter = Router()
 
-// Calculate directory path
-const __dirname = path.dirname(fileURLToPath(import.meta.url))
-
-// API routes
-// * GET /api/todos
+// * GET /api/todos - get all todos
 apiRouter.get('/api/todos', (req, res) => {
   res.send(generateTodosHTML(todos))
 })
