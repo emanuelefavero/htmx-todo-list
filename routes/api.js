@@ -25,8 +25,8 @@ apiRouter.post('/api/todos', (req, res) => {
   res.send(generateTodosHTML(todos))
 })
 
-// * POST /api/toggle/:id - toggle the completion status of a todo
-apiRouter.post('/api/toggle/:id', (req, res) => {
+// * POST /api/todos/toggle/:id - toggle the completion status of a todo
+apiRouter.post('/api/todos/toggle/:id', (req, res) => {
   const { id } = req.params
   const todo = todos.find((t) => t.id === id)
   if (todo) {
@@ -44,7 +44,7 @@ apiRouter.post('/api/toggle/:id', (req, res) => {
 })
 
 // * POST /api/delete/:id - delete a todo
-apiRouter.post('/api/delete/:id', (req, res) => {
+apiRouter.post('/api/todos/delete/:id', (req, res) => {
   const { id } = req.params
   const index = todos.findIndex((t) => t.id === id)
   if (index !== -1) todos.splice(index, 1)
@@ -53,7 +53,7 @@ apiRouter.post('/api/delete/:id', (req, res) => {
 })
 
 // * POST /api/delete-completed - delete all completed todos
-apiRouter.post('/api/delete-completed', (req, res) => {
+apiRouter.post('/api/todos/delete-completed', (req, res) => {
   for (let i = todos.length - 1; i >= 0; i--) {
     if (todos[i].completed) {
       todos.splice(i, 1)
