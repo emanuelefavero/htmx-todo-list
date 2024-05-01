@@ -1,6 +1,6 @@
 import generateTodosHTML from './generateTodosHTML'
 
-// NOTE: Run the tests with `npm run test` in the terminal, do not use the vs code extension `Run|Debug` since it does not work with this project setup (esm module)
+// NOTE: Run the tests with `npm test` in the terminal, do not use the vs code extension `Run|Debug` since it does not work with this project setup (esm module)
 
 describe('generateTodosHTML', () => {
   it('should generate HTML for not completed todos', () => {
