@@ -1,6 +1,5 @@
 import { Router } from 'express'
 import { v4 as uuidv4 } from 'uuid'
-// import { todos } from '../data/todos.js'
 import pool from '../config/database.js'
 import generateTodosHTML from '../utilities/generateTodosHTML.js'
 
@@ -110,13 +109,18 @@ apiRouter.post('/api/todos/delete/:id', async (req, res) => {
 
 // * POST /api/delete-completed - delete all completed todos
 apiRouter.post('/api/todos/delete-completed', async (req, res) => {
-  for (let i = todos.length - 1; i >= 0; i--) {
-    if (todos[i].completed) {
-      todos.splice(i, 1)
-    }
-  }
+  try {
+    await pool.query('DELETE FROM todos WHERE completed = true;')
 
-  res.send(generateTodosHTML(todos))
+    // Fetch all todos from the database and send as HTML
+    const { rows } = await pool.query('SELECT * FROM todos')
+    res.send(generateTodosHTML(rows))
+
+    // Error handling
+  } catch (error) {
+    console.error('Error deleting completed todos', error)
+    res.status(500).send('<p>Internal server error</p>')
+  }
 })
 
 export default apiRouter
