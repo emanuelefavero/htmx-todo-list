@@ -64,7 +64,9 @@ apiRouter.post('/api/todos/toggle/:id', async (req, res) => {
       [id]
     )
     if (toggleResponse.rows.length === 0) {
-      return res.status(404).send('<p>Todo not found</p>')
+      return res
+        .status(404)
+        .send('<p>Todo not found when toggling completed state</p>')
     }
 
     // Put not completed todos at the top of the list and send as HTML
@@ -85,10 +87,25 @@ apiRouter.post('/api/todos/toggle/:id', async (req, res) => {
 // * POST /api/delete/:id - delete a todo
 apiRouter.post('/api/todos/delete/:id', async (req, res) => {
   const { id } = req.params
-  const index = todos.findIndex((t) => t.id === id)
-  if (index !== -1) todos.splice(index, 1)
 
-  res.send(generateTodosHTML(todos))
+  try {
+    const deleteResponse = await pool.query(
+      'DELETE FROM todos WHERE id = $1 RETURNING *;',
+      [id]
+    )
+    if (deleteResponse.rows.length === 0) {
+      return res.status(404).send('<p>Todo not found when deleting</p>')
+    }
+
+    // Fetch all todos from the database and send as HTML
+    const { rows } = await pool.query('SELECT * FROM todos')
+    res.send(generateTodosHTML(rows))
+
+    // Error handling
+  } catch (error) {
+    console.error('Error deleting todo', error)
+    res.status(500).send('<p>Internal server error</p>')
+  }
 })
 
 // * POST /api/delete-completed - delete all completed todos
