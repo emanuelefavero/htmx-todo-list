@@ -1,13 +1,22 @@
 import { Router } from 'express'
 import { v4 as uuidv4 } from 'uuid'
 import { todos } from '../data/todos.js'
+import pool from '../config/database.js'
 import generateTodosHTML from '../utilities/generateTodosHTML.js'
 
 const apiRouter = Router()
 
 // * GET /api/todos - get all todos
-apiRouter.get('/api/todos', (req, res) => {
-  res.send(generateTodosHTML(todos))
+apiRouter.get('/api/todos', async (req, res) => {
+  try {
+    const { rows } = await pool.query('SELECT * FROM todos')
+    res.send(generateTodosHTML(rows)) // ? rows is the array of todos
+  } catch (error) {
+    console.error(error)
+    res
+      .status(500)
+      .send('An error occurred while fetching todos from the database')
+  }
 })
 
 // * POST /api/todos - add a new todo
