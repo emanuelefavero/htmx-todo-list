@@ -19,7 +19,14 @@
     ></script>
   </head>
   <body>
-    <h1 class="title">HTMX Todo List</h1>
+    <header>
+      <h1 class="title">HTMX Todo List</h1>
+      <!-- Loading indicator -->
+      <!-- TIP: The indicator needs to have a class of `htmx-indicator` to be hidden when the data loads -->
+      <div class="htmx-indicator loading-indicator-container" id="loading">
+        <img src="images/loading.gif" alt="Loading..." />
+      </div>
+    </header>
 
     <!-- ADD NEW TODO -->
     <form
@@ -40,7 +47,13 @@
     </form>
 
     <!-- GET TODOS -->
-    <ul id="todos" hx-get="/api/todos" hx-trigger="load" hx-target="this"></ul>
+    <ul
+      id="todos"
+      hx-get="/api/todos"
+      hx-trigger="load"
+      hx-target="this"
+      hx-indicator="#loading"
+    ></ul>
 
     <script>
       function clearInput() {

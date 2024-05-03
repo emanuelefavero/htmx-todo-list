@@ -130,21 +130,30 @@ ul {
   list-style-type: none;
 }
 
-/* TITLE */
-h1.title {
-  margin-bottom: 1rem;
-  font-size: 1.5rem;
+header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: max-content;
+  margin-bottom: 0.5rem;
+
+  /* TITLE */
+  h1.title {
+    font-size: 1.5rem;
+  }
 }
 
 /* LOADING INDICATOR */
 .loading-indicator-container {
-  width: 100%;
+  position: relative;
+  /* width: 100%; */
   display: flex;
   justify-content: center;
 
   img {
-    height: 3rem;
+    height: 2rem;
     margin: auto;
+    margin-left: 0.5rem;
   }
 }
 
