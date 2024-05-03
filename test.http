@@ -1,18 +1,24 @@
 ### SERVER http://localhost:3000
 
 ### TEST PAGES
-### GET /
+### GET / - Home Page
 GET http://localhost:3000/
 
 ### TEST API
-### GET /api/todos
+### GET /api/todos - Get all todos
 GET http://localhost:3000/api/todos
 
-### POST /api/todos
+### POST /api/todos - Create a new todo
 POST http://localhost:3000/api/todos
 Content-Type: application/x-www-form-urlencoded
 
 text=Workout
 
-### POST /api/todos/togle/:id
+### PATCH /api/todos/toggle/:id - Toggle a todo
 PATCH http://localhost:3000/api/todos/toggle/8cc4e1a1-9d78-4c6e-ad7d-7d8d3218a466
+
+### DELETE /api/todos/:id - Delete a todo
+DELETE http://localhost:3000/api/todos/19eeb55f-7562-4206-a83a-43c7009aad52
+
+### DELETE /api/todos/delete-completed - Delete all completed todos
+POST http://localhost:3000/api/todos/delete-completed

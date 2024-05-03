@@ -82,7 +82,7 @@ apiRouter.patch('/api/todos/toggle/:id', async (req, res) => {
   }
 })
 
-// * DELETE /api/delete/:id - delete a todo
+// * DELETE /api/todos/:id - delete a todo
 apiRouter.delete('/api/todos/:id', async (req, res) => {
   const { id } = req.params
 
@@ -106,7 +106,7 @@ apiRouter.delete('/api/todos/:id', async (req, res) => {
   }
 })
 
-// * DELETE /api/delete-completed - delete all completed todos
+// * DELETE /api/todos/delete-completed - delete all completed todos
 apiRouter.post('/api/todos/delete-completed', async (req, res) => {
   try {
     await pool.query('DELETE FROM todos WHERE completed = true;')
