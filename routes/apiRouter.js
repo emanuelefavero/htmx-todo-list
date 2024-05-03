@@ -25,10 +25,9 @@ apiRouter.get('/api/todos', async (req, res) => {
 
 // * POST /api/todos - add a new todo
 apiRouter.post('/api/todos', async (req, res) => {
-  const { text } = req.body
-
   // * Insert a new todo into the PostgreSQL database with `pg` pool
   try {
+    const { text } = req.body
     await pool.query(
       'INSERT INTO todos (id, text, completed) VALUES ($1, $2, $3)',
       [uuidv4(), text, false]
