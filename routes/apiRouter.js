@@ -48,8 +48,8 @@ apiRouter.post('/api/todos', async (req, res) => {
   }
 })
 
-// * POST /api/todos/toggle/:id - toggle the completion status of a todo
-apiRouter.post('/api/todos/toggle/:id', async (req, res) => {
+// * PATCH /api/todos/toggle/:id - toggle the completion status of a todo
+apiRouter.patch('/api/todos/toggle/:id', async (req, res) => {
   const { id } = req.params
 
   try {
@@ -82,8 +82,8 @@ apiRouter.post('/api/todos/toggle/:id', async (req, res) => {
   }
 })
 
-// * POST /api/delete/:id - delete a todo
-apiRouter.post('/api/todos/delete/:id', async (req, res) => {
+// * DELETE /api/delete/:id - delete a todo
+apiRouter.delete('/api/todos/:id', async (req, res) => {
   const { id } = req.params
 
   try {
@@ -106,7 +106,7 @@ apiRouter.post('/api/todos/delete/:id', async (req, res) => {
   }
 })
 
-// * POST /api/delete-completed - delete all completed todos
+// * DELETE /api/delete-completed - delete all completed todos
 apiRouter.post('/api/todos/delete-completed', async (req, res) => {
   try {
     await pool.query('DELETE FROM todos WHERE completed = true;')

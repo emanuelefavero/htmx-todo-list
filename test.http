@@ -15,5 +15,4 @@ Content-Type: application/x-www-form-urlencoded
 text=Workout
 
 ### POST /api/todos/togle/:id
-POST http://localhost:3000/api/todos/toggle/8cc4e1a1-9d78-4c6e-ad7d-7d8d3218a466
-
+PATCH http://localhost:3000/api/todos/toggle/8cc4e1a1-9d78-4c6e-ad7d-7d8d3218a466
